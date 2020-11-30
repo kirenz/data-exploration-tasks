@@ -1,0 +1,188 @@
+---
+title: "PISA Data Analysis"
+author: "INSERT YOUR NAME HERE"
+output:
+ html_document:
+  fig_height: 8
+  fig_width: 12
+  highlight: tango
+  number_sections: yes
+  theme: paper
+  toc: yes
+  toc_depth: 3
+  toc_float: 
+    collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+```
+
+
+![](http://www.oecd.org/media/oecdorg/satellitesites/pisa/PISA_WebBanner6-01.jpg)
+
+PISA is the OECD's Programme for International Student Assessment. Every three years it tests 15-year-old students from all over the world in reading, mathematics and science. The tests are designed to gauge how well the students master key subjects in order to be prepared for real-life situations in the adult world
+
+Source: [OECD (2019)](http://www.oecd.org/pisa/)
+
+
+# PISA data analysis 
+
+Load the library `tidyverse`
+
+```{r}
+
+```
+
+
+## Data import 
+
+You can find all PISA datasets on [GitHub](https://github.com/kirenz/datasets).
+
+* Load the pisa dataset "pisa.csv" and call the object "pisa_total"
+
+```{r}
+
+```
+
+
+
+## Data preparation
+
+* Select all variables except `INDICATOR`, `MEASURE`, `FREQUENCY` and `Flag Codes` from the dataset and save the columns as `pisa_total` (use the - operator to deselect the variables). ([hint](https://stackoverflow.com/a/22842390))
+
+```{r}
+
+```
+
+
+* Change all variables to lower case (e.g. `LOCATION` to `location`). 
+
+```{r}
+
+```
+
+
+
+* Convert `time` to a factor variable. 
+
+```{r}
+
+```
+
+
+
+* Rename `time` to `year`, `location` to `country` and `value` to `score` and save it again as `pisa_total`. 
+
+```{r}
+
+```
+
+
+* Now, we enrich the data with a new dataset. Use this [data source](https://datahub.io/JohnSnowLabs/country-and-continent-codes-list) to obtain the file `country-and-continent-codes-list-csv.csv`. Import the file and call it country_and_continent. 
+
+```{r}
+
+```
+
+
+* Select all columns from `country_and_continent` except `Two_Letter_Country_Code` and `Country_Number`.
+
+```{r}
+
+```
+
+
+* Rename `Three_Letter_Country_Code`to `country`
+
+```{r}
+
+```
+
+
+* Perform a left join to add `country_and_continent` to `pisa_total` and save the new data in `pisa_total`
+
+```{r}
+
+```
+
+
+
+# Data visualization
+
+Load the library `ggplot2`. 
+
+```{r}
+
+```
+
+
+
+## Boxplot for Europe
+
+* Create a boxplot:
+
+ * Only use the subset Europe in your plot ([hint](https://stackoverflow.com/a/18165730))
+ * Set x = country and y = score
+ * Sort the data from the highest to the lowest score ([hint](https://stackoverflow.com/a/25664367))
+ * Use theme_standard with a base size of 12 ([hint](https://ggplot2.tidyverse.org/reference/ggtheme.html))
+ * Rotate the text of the x-axis to an angle of 90 degree ([hint](https://stackoverflow.com/a/4486860))
+ * Set the title of the plot as "Variation in PISA Scores" and the subtitle to "Europe" ([hint](https://ggplot2.tidyverse.org/reference/labs.html))
+ * Label the x-axis as "Country" and the y-axis as "PISA Score"
+
+
+```{r}
+
+```
+
+
+
+## Scores for Germany
+
+Show scores for Germany over time
+
+* Create a line plot for Germany: 
+
+ * Only use the subset Germany in your plot ([hint](https://stackoverflow.com/a/18165730))
+ * Set x = year , y = score and group = 1 ([hint](https://stackoverflow.com/a/29019102))
+ * Use theme_classic with a base size of 12 ([hint](https://ggplot2.tidyverse.org/reference/ggtheme.html))
+ * Set the title of the plot as "Variation in PISA Scores over Time" and the subtitle to "Germany" 
+ * Label the x-axis as "Year" and the y-axis as "PISA Score"
+ * Use continous y-axis breaks: c(500, 502, 504, 506, 508, 510, 512, 514) ([hint](https://ggplot2.tidyverse.org/reference/scale_continuous.html))
+
+```{r}
+
+```
+
+
+## Scores for boys and girls
+
+Show scores over time for boys and girls
+
+* Create a line plot showing the scores for girls and boys:
+
+ * Only use the subset Germany in your plot ([hint](https://stackoverflow.com/a/18165730))
+ * Set x = year , y = score, group = subject, color = subject ([hint](https://stackoverflow.com/a/29019102))
+ * Use a line plot as well as a point plot (to display the points in the lines) in one graph ([hint](http://www.sthda.com/english/wiki/ggplot2-line-plot-quick-start-guide-r-software-and-data-visualization))
+ * Use theme_classic with a base size of 12 ([hint](https://ggplot2.tidyverse.org/reference/ggtheme.html))
+ * Set the title of the plot as "Variation in PISA Scores over Time for Boys and Girls" and the subtitle to "Germany" 
+ * Label the x-axis as "Year" and the y-axis as "PISA Score"
+ * Don't show the title of the legend ("subject") ([hint](http://www.cookbook-r.com/Graphs/Legends_%28ggplot2%29/))
+
+```{r}
+
+```
+
+
+
+## Scores with facet
+
+Show scores over time for boys and girls with facet
+
+* Use the code from the previous plot and add a `facet_grid` for varibale `subject` ([hint](https://ggplot2.tidyverse.org/reference/facet_grid.html))
+
+```{r}
+
+```
